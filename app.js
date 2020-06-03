@@ -1,11 +1,18 @@
 "use strict";
 (function () {
-    console.log("inicio");
-    var promesa1 = new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            reject("se lanzo reject");
-        }, 2000);
-    });
-    //Recibo valor que estoy mandando en el reject
-    promesa1.catch(function (err) { return console.log(err); });
+    var retirarDinero = function (montoRetirar) {
+        var dineroActual = 1000;
+        return new Promise(function (resolve, reject) {
+            if (montoRetirar > dineroActual) {
+                reject("No tenes dinero vieja");
+            }
+            else {
+                dineroActual -= montoRetirar;
+                resolve(dineroActual);
+            }
+        });
+    };
+    retirarDinero(1299)
+        .then(function (mensaje) { return console.log("Te queda " + mensaje); })
+        .catch(function (err) { return console.warn(err); });
 })();
